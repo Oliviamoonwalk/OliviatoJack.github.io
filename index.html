@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Jack!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e90ff, #0077be);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+            perspective: 1000px;
+        }
+        
+        .card {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 245, 0.98));
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
+            padding: 40px 30px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+        
+        .card:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+        
+        .header {
+            margin-bottom: 25px;
+        }
+        
+        .salutation {
+            font-size: 28px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            color: #333;
+            font-size: 22px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 10px;
+        }
+        
+        .divider {
+            height: 4px;
+            width: 80%;
+            margin: 0 auto 30px;
+            background: linear-gradient(to right, transparent, #ff6b6b, transparent);
+            border-radius: 2px;
+        }
+        
+        .decoration {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .balloon {
+            width: 50px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background-color: #ccc;
+        }
+        
+        .balloon:nth-child(1) {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            animation-delay: 0s;
+        }
+        
+        .balloon:nth-child(2) {
+            background: linear-gradient(135deg, #4dabf7, #74c0fc);
+            animation-delay: 0.5s;
+        }
+        
+        .balloon:nth-child(3) {
+            background: linear-gradient(135deg, #ffd43b, #ffde75);
+            animation-delay: 1s;
+        }
+        
+        .cake-container {
+            margin: 30px auto;
+            position: relative;
+            width: 180px;
+            height: 150px;
+        }
+        
+        .cake {
+            width: 120px;
+            height: 60px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cake-base {
+            width: 120px;
+            height: 30px;
+            background: linear-gradient(135deg, #f08a5d, #b83b5e);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .cake-top {
+            width: 100px;
+            height: 30px;
+            background: linear-gradient(135deg, #ff9a8b, #ff6b6b);
+            border-radius: 10px 10px 0 0;
+            margin: 0 auto;
+        }
+        
+        .candle {
+            width: 8px;
+            height: 25px;
+            background: linear-gradient(to bottom, #fd7e14, #ffd43b);
+            border-radius: 4px;
+            margin: 0 auto;
+            position: relative;
+            top: -15px;
+        }
+        
+        .flame {
+            width: 15px;
+            height: 25px;
+            background: linear-gradient(to bottom, #ffd43b, #ff6b6b);
+            border-radius: 50% 50% 20% 20%;
+            margin: 0 auto;
+            position: relative;
+            top: -35px;
+            animation: flicker 1.5s ease-in-out infinite alternate;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            opacity: 0.8;
+            border-radius: 2px;
+        }
+        
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+            color: #ff6b6b;
+            font-size: 22px;
+            font-weight: 600;
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        .music-control {
+            margin-top: 20px;
+            background: #4dabf7;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(77, 171, 247, 0.4);
+        }
+        
+        .music-control:hover {
+            background: #339af0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(77, 171, 247, 0.5);
+        }
+        
+        .share-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .github-note {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #555;
+            text-align: left;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.9; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+        
+        .envelope {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            transform: rotate(15deg);
+            opacity: 0.8;
+            color: #ff6b6b;
+        }
+        
+        .heart {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            color: #ff6b6b;
+            font-size: 24px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            h1 { font-size: 32px; }
+            .message { font-size: 20px; }
+            .card { padding: 30px 20px; }
+            .salutation { font-size: 24px; }
+            .signature { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="envelope">
+                <i class="fas fa-envelope-open-text" style="font-size: 80px;"></i>
+            </div>
+            
+            <div class="heart">
+                <i class="fas fa-heart"></i>
+            </div>
+            
+            <div class="header">
+                <p class="salutation">Dear Jack,</p>
+                <h1>HAPPY BIRTHDAY!</h1>
+                <p class="message">I HOPE YOU'RE READY FOR ANOTHER YEAR OF ME ANNOYING YOU!</p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="cake-base"></div>
+                    <div class="cake-top"></div>
+                    <div class="candle"></div>
+                    <div class="flame"></div>
+                </div>
+            </div>
+            
+            <div class="decoration">
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+            </div>
+            
+            <button class="music-control" onclick="toggleMusic()">
+                <i class="fas fa-music"></i> Play Birthday Music
+            </button>
+            
+            <p class="share-text">Share this link with friends: <span id="current-url"></span></p>
+            
+            <div class="github-note">
+                <p><strong>GitHub Pages Note:</strong> If this page isn't working on GitHub:</p>
+                <ol>
+                    <li>Make sure the file is named <strong>index.html</strong></li>
+                    <li>Enable GitHub Pages in your repository settings</li>
+                    <li>Select the branch containing this file</li>
+                </ol>
+            </div>
+            
+            <p class="signature">With love,<br>Olivia</p>
+            
+            <!-- Confetti elements -->
+            <div class="confetti" style="top: 10%; left: 20%; background-color: #ff6b6b; animation: float 6s ease-in-out infinite;"></div>
+            <div class="confetti" style="top: 5%; left: 50%; background-color: #4dabf7; animation: float 7s ease-in-out infinite 1s;"></div>
+            <div class="confetti" style="top: 15%; left: 70%; background-color: #ffd43b; animation: float 5s ease-in-out infinite 0.5s;"></div>
+            <div class="confetti" style="top: 7%; left: 40%; background-color: #40c057; animation: float 8s ease-in-out infinite 0.7s;"></div>
+            <div class="confetti" style="top: 12%; left: 80%; background-color: #7950f2; animation: float 6.5s ease-in-out infinite 1.2s;"></div>
+            
+            <audio id="birthdayAudio" loop>
+                <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-638.mp3" type="audio/mpeg">
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // Display current URL for sharing
+        document.getElementById('current-url').textContent = window.location.href;
+        
+        // Create more confetti
+        function createConfetti() {
+            const card = document.querySelector('.card');
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -Math.random() * 20 + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                confetti.style.animation = `float ${5 + Math.random() * 4}s ease-in-out infinite ${Math.random() * 2}s`;
+                confetti.style.width = `${8 + Math.random() * 8}px`;
+                confetti.style.height = `${8 + Math.random() * 8}px`;
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                card.appendChild(confetti);
+            }
+        }
+        
+        // Create initial confetti
+        createConfetti();
+        
+        // Music control
+        const audio = document.getElementById('birthdayAudio');
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                document.querySelector('.music-control').innerHTML = '<i class="fas fa-music"></i> Play Birthday Music';
+            } else {
+                audio.play().catch(e => {
+                    console.log("Audio play failed: ", e);
+                    alert("Please interact with the page first to enable audio, then click play again.");
+                });
+                document.querySelector('.music-control').innerHTML = '<i class="fas fa-pause"></i> Pause Music';
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        // Add interactive card tilt effect
+        const card = document.querySelector('.card');
+        
+        card.addEventListener('mousemove', (e) => {
+            const x = e.clientX - card.getBoundingClientRect().left;
+            const y = e.clientY - card.getBoundingClientRect().top;
+            
+            const centerX = card.offsetWidth / 2;
+            const centerY = card.offsetHeight / 2;
+            
+            const rotateY = (x - centerX) / 25;
+            const rotateX = (centerY - y) / 25;
+            
+            card.style.transform = `perspective(1000px) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+        });
+        
+        // Enable audio with first user interaction
+        document.body.addEventListener('click', function() {
+            if (audio) {
+                audio.play().then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(e => console.log("Audio initialization: ", e));
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
